@@ -20,7 +20,7 @@ for category in Classes:
     path = os.path.join(Datadirectory,category)
     for img in os.listdir(path):
         img_array=cv2.imread(os.path.join(path,img))
-        plt.imshow(cv2.cvtColor(img_arry,cv2.COLOR_BGR2RGB))
+        plt.imshow(cv2.cvtColor(img_array,cv2.COLOR_BGR2RGB))
         plt.show()
         break
     break
@@ -56,10 +56,10 @@ X=np.array(x).reshape(-1,img_size,img_size,3)
 X.shape
 
 #normalize the data
-X=X/255.0;
+X=X/255.0
 y[1000]
 
-Y.np.array(y)
+Y=np.array(y)
 
 pickle_out=open("X.pickle","wb")
 pickle.dump(X,pickle_out)
@@ -90,10 +90,10 @@ new_model.summary()
 new_model.compile(loss="binary_crossentropy",optimizer="adam",metrics=["accuracy"])
 new_model.fit(X,Y,epochs =1,validation_split=0.1)
 new_model.save('my_mode13.h5')
-new_model=tf.keras.models.load_model('my_model.h5')
+new_model=tf.keras.models.load_model('my_mode13.h5')
 
 #Checking the network for predictions
-frame=cv2.imread('00002_Mask.jpg')
+frame=cv2.imread('Dataset/Face_Mask/00002_Mask.jpg')
 plt.imshow(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
 final_image=cv2.resize(frame,(224,224))
 final_image=np.expand_dims(final_image,axis=0)      #need fourth dimension
@@ -104,7 +104,7 @@ Predictions
 #checking the network for unknown imagws
 frame=cv2.imread('sad women.jpg')
 frame.shape
-plt.imshow(cv2.cvtColor(frame,xv2.COLOR_BGR2RGB))
+plt.imshow(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
 facesCascade=cv2.CascadeClassifier(cv2.data.haarcascades +'haarcascade_frontalface_default.xml')
 gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
 gray.shape
@@ -113,7 +113,7 @@ faces=facesCascade.detectMultiScale(gray,1.1,4)
 for x,y,w,h in faces:
     roi_gray=gray[y:y+h,x:x+w]
     roi_color=frame[y:y+h,x:x+w]
-    cv2.rectangle(frame,(x,y),(x+w,y+h)(255,0,0),2)
+    cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
     faces=facesCascade.detectMultiScale(roi_gray)
     if len(faces)==0:
         print("Face not detected")

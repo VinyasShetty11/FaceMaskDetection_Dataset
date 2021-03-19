@@ -2,7 +2,8 @@ import winsound
 import numpy as np
 frequency= 2500    
 duration =1000    #1000ms==1 sec
-from newmodel import model as new_model
+from newmodel import new_model,face_roi,x,y,w,h,Predictions
+
 import cv2 #pip install opencv-python
 path="haarcascade_frontalface_default.xml"
 font_scale=1.5
@@ -52,14 +53,13 @@ while True:
     final_image= np.expand_dims(final_image,axis=0)   #need fourth dimension
     final_image=final_image/255.0
     font=cv2.FONT_HERSHEY_SIMPLEX
-    Predicitions=new_model.predict(final_image)
+    Predictions=new_model.predict(final_image)
 
     font_scale=1.5
     font=cv2.FONT_HERSHEY_PLAIN
 
-    if(Predicitions>0):
+    if(Predictions>0):
         status="NoMask"
-
         x1,y1,w1,h1=0,0,175,75
         #draw black background rectangle
         cv2.rectangle(frame,(x1,x1),(x1+w1,y1+h1),(0,0,0),-1)
@@ -89,10 +89,9 @@ while True:
         # #USe putText()method for
         # #inserting text on video
     cv2.imshow('Face MAsk Detection ',frame)
-
     if cv2.waitKey(2) & 0xFF == ord('q'):
         break
 cap.release()
-cv2.destoryALlWindows()
+cv2.destroyAllWindows()
 
 
